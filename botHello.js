@@ -2,7 +2,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 const http = require('http');
 const url = require('url');
-const port = 3000;
+const port = 80;
 const hostname = '0.0.0.0';
 var retString = 'no return'
 
@@ -14,8 +14,10 @@ server.listen(process.env.port || process.env.PORT || port, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: '681082c9-6918-4e11-b816-135455a1c40d',
-    appPassword: 'yhv3vFbCvFtePMr92OaeTHT'
+//    appId: '681082c9-6918-4e11-b816-135455a1c40d',
+//    appPassword: 'yhv3vFbCvFtePMr92OaeTHT'
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
 // Listen for messages from users
