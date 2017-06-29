@@ -14,10 +14,10 @@ server.listen(process.env.port || process.env.PORT || port, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-//    appId: '681082c9-6918-4e11-b816-135455a1c40d',
-//    appPassword: 'yhv3vFbCvFtePMr92OaeTHT'
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: '681082c9-6918-4e11-b816-135455a1c40d',
+    appPassword: 'yhv3vFbCvFtePMr92OaeTHT'
+//    appId: process.env.MICROSOFT_APP_ID,
+//    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
 // Listen for messages from users
@@ -41,9 +41,10 @@ var url_ = 'http://test.sysubot.tk?q=' + require('querystring').escape(session.m
 
 });
 
-//const server = http.createServer(function(req, res){
-//
+//const server_m = http.createServer(function(req, res){
+//    res.write('usage error');
+//    res.end();
 //});
-//server.listen(port, hostname, () => {
+//server_m.listen(8080, hostname, () => {
 // console.log(`Server running at http://${hostname}:${port}/`);
 //});
