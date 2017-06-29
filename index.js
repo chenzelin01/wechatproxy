@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
   return res.end('Hello World\n');
 });
 
-server.listen(port, hostname, () => {
+server.listen(process.env.PORT || 5000, hostname, () => {
   console.log(`服务器运行在 http://${hostname}:${port}/`);
 });
 
