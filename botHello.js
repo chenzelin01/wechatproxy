@@ -21,7 +21,7 @@ server.get('/', function (req, res, next) {
                 } else {
 
                     res.write(file);
-
+                    res.end();
                 }
                 });
   return next();
