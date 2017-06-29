@@ -1,20 +1,16 @@
-var express = require('express');
-var app = express();
+const http = require('http');
 
-app.set('port', (process.env.PORT || 5000));
+const hostname = '0.0.0.0';
+const port = 80;
 
-app.use(express.static(__dirname + '/public'));
-
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
-app.get('/', function(request, response) {
-  response.render('pages/index');
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+server.listen(port, hostname, () => {
+  console.log(`服务器运行在 http://${hostname}:${port}/`);
 });
 
 
