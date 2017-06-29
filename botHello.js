@@ -1,15 +1,30 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var fs = require('fs');
 const http = require('http');
 const url = require('url');
 const port = 80;
 const hostname = '0.0.0.0';
 var retString = 'no return'
-
-// Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.PORT || 5000, function () {
    console.log('%s listening to %s', server.name, server.url);
+});
+
+server.get('/', function (req, res, next) {
+  fs.readFile('iframe.html', "binary", function (err, file) {
+                if (err) {
+                    res.send(500, {
+                        'Content-Type': 'text/plain'
+                    });
+
+                } else {
+
+                    res.write(file);
+
+                }
+                });
+  return next();
 });
 
 // Create chat connector for communicating with the Bot Framework Service
