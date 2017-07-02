@@ -1,4 +1,4 @@
-var restify = require('restify');
+﻿var restify = require('restify');
 var builder = require('botbuilder');
 var fs = require('fs');
 const http = require('http');
@@ -40,7 +40,7 @@ server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
-var url_ = 'http://test.sysubot.tk?q=' + require('querystring').escape(session.message.text);
+var url_ = 'http://sysubot.ngrok.cc?q=' + require('querystring').escape(session.message.text);
     console.log(url_);
     const request = http.get(url_, (respond) => {
         respond.on('data', (chunk) => {
