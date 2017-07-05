@@ -40,7 +40,7 @@ server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
-var url_ = 'http://bbae9e60.ngrok.io?q=' + require('querystring').escape(session.message.text);
+var url_ = 'http://294eb343.ngrok.io?q=' + require('querystring').escape(session.message.text);
     console.log(url_);
     const request = http.get(url_, (respond) => {
         respond.on('data', (chunk) => {
