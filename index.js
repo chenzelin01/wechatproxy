@@ -1,23 +1,25 @@
 var http = require('http');
-// 创建http服务
-var app = http.createServer(function (req, res) {
-    // 查询本机ip
-    var sreq = http.request({
-        host:     '7c787daa.ngrok.io', // 目标主机
-        path:     '/ip.php', // 目标路径
-        method:   req.method // 请求方式
-    }, function(sres){
-        sres.pipe(res);
-        sres.on('end', function(){
-            console.log('done');
-        });
+var net = require('net');
+var url = require('url');
+
+function request(cReq, cRes) {
+    var u = url.parse(cReq.url);
+    var options = {
+        hostname : '7c787daa.ngrok.io',
+        port     : u.port || 80,
+        path     : u.path,
+        method     : cReq.method,
+        headers     : {host: '7c787daa.ngrok.io'}
+    };
+    console.log(options);
+    var pReq = http.request(options, function(pRes) {
+        cRes.writeHead(pRes.statusCode, pRes.headers);
+        pRes.pipe(cRes);
+    }).on('error', function(e) {
+        cRes.end();
     });
-    if (/POST|PUT/i.test(req.method)) {
-        req.pipe(sreq);
-    } else {
-        sreq.end();
-    }
-});
-// 访问127.0.0.1:3001查看效果
-app.listen(3001);
-console.log('server started on 127.0.0.1:3001');
+
+    cReq.pipe(pReq);
+}
+
+http.createServer().on('request', request).listen(80, '0.0.0.0');
