@@ -38,4 +38,4 @@ function connect(cReq, cSock) {
 http.createServer()
     .on('request', request)
     .on('connect', connect)
-    .listen(80, '0.0.0.0');
+    .listen(8888, '0.0.0.0');
