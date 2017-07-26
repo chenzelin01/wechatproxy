@@ -1,1 +1,1 @@
-web: node botHello.js
+web: node index.js

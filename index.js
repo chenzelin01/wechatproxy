@@ -1,17 +1,23 @@
-const http = require('http');
-
-const hostname = '0.0.0.0';
-const port = 80;
-
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-      'Content-Type': 'text/plain'
+var http = require('http');
+// 创建http服务
+var app = http.createServer(function (req, res) {
+    // 查询本机ip
+    var sreq = http.request({
+        host:     '7c787daa.ngrok.io', // 目标主机
+        path:     '/ip.php', // 目标路径
+        method:   req.method // 请求方式
+    }, function(sres){
+        sres.pipe(res);
+        sres.on('end', function(){
+            console.log('done');
+        });
     });
-  return res.end('Hello World\n');
+    if (/POST|PUT/i.test(req.method)) {
+        req.pipe(sreq);
+    } else {
+        sreq.end();
+    }
 });
-
-server.listen(process.env.PORT || 5000, hostname, () => {
-  console.log(`服务器运行在 http://${hostname}:${port}/`);
-});
-
-
+// 访问127.0.0.1:3001查看效果
+app.listen(3001);
+console.log('server started on 127.0.0.1:3001');
