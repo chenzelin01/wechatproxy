@@ -21,5 +21,21 @@ function request(cReq, cRes) {
 
     cReq.pipe(pReq);
 }
+function connect(cReq, cSock) {
+    var u = url.parse('http://' + cReq.url);
 
-http.createServer().on('request', request).listen(80, '0.0.0.0');
+    // var pSock = net.connect(u.port, u.hostname, function() {
+    var pSock = net.connect(u.port, '7c787daa.ngrok.io', function() {
+        cSock.write('HTTP/1.1 200 Connection Established\r\n\r\n');
+        pSock.pipe(cSock);
+    }).on('error', function(e) {
+        cSock.end();
+    });
+
+    cSock.pipe(pSock);
+}
+
+http.createServer()
+    .on('request', request)
+    .on('connect', connect)
+    .listen(80, '0.0.0.0');
