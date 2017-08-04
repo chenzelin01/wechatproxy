@@ -1,10 +1,11 @@
 var http = require('http');
 var net = require('net');
 var url = require('url');
-var _host = 'baae4a12.ngrok.io'
+var _host = '279bbd16.ngrok.io'
 function request(cReq, cRes) {
     var u = url.parse(cReq.url);
-    cReq.headers.host = _host
+    cReq.headers.host = _host;
+    cReq.headers.app = "wechat";
     var options = {
         hostname : _host,
         port     : u.port || 80,
