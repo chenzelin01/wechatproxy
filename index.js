@@ -9,7 +9,8 @@ function request(cReq, cRes) {
     cReq.headers.app = "wechat";
     var options = {
         hostname : _host,
-        port     : u.port || 80,
+        // port     : u.port || 80,
+        port     : 8870,
         path     : u.path,
         method     : cReq.method,
         headers     : cReq.headers
