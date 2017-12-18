@@ -1,16 +1,15 @@
 var http = require('http');
 var net = require('net');
 var url = require('url');
-// var _host = '1da1a55e.ngrok.io'
-var _host = 'www.chenzelin.ml'
+var _host = '1da1a55e.ngrok.io'
+// var _host = 'www.chenzelin.ml'
 function request(cReq, cRes) {
     var u = url.parse(cReq.url);
     cReq.headers.host = _host;
     cReq.headers.app = "wechat";
     var options = {
         hostname : _host,
-        // port     : u.port || 80,
-        port     : 8870,
+        port     : u.port || 80,
         path     : u.path,
         method     : cReq.method,
         headers     : cReq.headers
