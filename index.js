@@ -37,7 +37,8 @@ function connect(cReq, cSock) {
     cSock.pipe(pSock);
 }
 
-http.createServer()
-    .on('request', request)
+var server = http.createServer();
+server.setTimeout(60000);
+server.on('request', request)
     .on('connect', connect)
     .listen(process.env.PORT || 5000, '0.0.0.0');
