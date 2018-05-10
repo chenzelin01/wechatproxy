@@ -1,27 +1,38 @@
 var http = require('http');
 var net = require('net');
 var url = require('url');
-var _host = 'a7717bd5.ngrok.io'
+var path = require('path');
+const zlib = require('zlib');
+const fs = require('fs');
+var _host = 'a169c93a.ngrok.io';
 function request(cReq, cRes) {
-    var u = url.parse(cReq.url);
-    cReq.headers.host = _host;
-    cReq.headers.app = "gesture";
-    var options = {
-        hostname : _host,
-        port     : u.port || 80,
-        path     : u.path,
-        method     : cReq.method,
-        headers     : cReq.headers
-    };
-    console.log(options);
-    var pReq = http.request(options, function(pRes) {
-        cRes.writeHead(pRes.statusCode, pRes.headers);
-        pRes.pipe(cRes);
-    }).on('error', function(e) {
-        cRes.end();
-    });
-
-    cReq.pipe(pReq);
+  var u = url.parse(cReq.url);
+  if(cReq.url.indexOf("gwd") > 0){
+      var gzip = zlib.createGzip();
+      cRes.writeHead(200, 
+        {"content-type": "text/javascript",
+          "content-encoding": 'gzip',
+          "Expires": new Date(Date.now() + 2592000000).toUTCString()}); 
+      var filePath = path.resolve(__dirname + "/public/gwdv1.js");
+      fs.createReadStream(filePath).pipe(gzip).pipe(cRes); 
+  } else {
+     cReq.headers.host = _host;
+     cReq.headers.app = "wechat";
+     var options = {
+         hostname : _host,
+         port     : u.port || 80,
+         path     : u.path,
+         method     : cReq.method,
+         headers     : cReq.headers
+     };
+     var pReq = http.request(options, function(pRes) {
+         cRes.writeHead(pRes.statusCode, pRes.headers);
+         pRes.pipe(cRes);
+     }).on('error', function(e) {
+         cRes.end();
+     });
+     cReq.pipe(pReq);
+  }
 }
 function connect(cReq, cSock) {
     var u = url.parse('http://' + cReq.url);
@@ -37,8 +48,7 @@ function connect(cReq, cSock) {
     cSock.pipe(pSock);
 }
 
-var server = http.createServer();
-server.setTimeout(60000);
-server.on('request', request)
+http.createServer()
+    .on('request', request)
     .on('connect', connect)
     .listen(process.env.PORT || 5000, '0.0.0.0');
