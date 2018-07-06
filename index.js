@@ -6,7 +6,8 @@ var _host = 'www.49zhe.com'
 // test
 function request(cReq, cRes) {
   if(cReq.url.indexOf("robot.txt")){
-    cRes.write("dd2ef5f90e975a614485124a097efaba");
+    cRes.writeHead(200, {'Content-Type': 'text/plain'});
+    cRes.end("dd2ef5f90e975a614485124a097efaba");
   } else {
     var u = url.parse(cReq.url);
     cReq.headers.host = _host;
