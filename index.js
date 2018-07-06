@@ -5,7 +5,7 @@ var url = require('url');
 var _host = 'www.49zhe.com'
 // test
 function request(cReq, cRes) {
-  if(cReq.url.indexOf("robot.txt")){
+  if(cReq.url.indexOf("root.txt")){
     cRes.writeHead(200, {'Content-Type': 'text/plain'});
     cRes.end("dd2ef5f90e975a614485124a097efaba");
   } else {
