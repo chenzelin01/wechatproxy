@@ -5,6 +5,9 @@ var url = require('url');
 var _host = 'www.49zhe.com'
 // test
 function request(cReq, cRes) {
+  if(cReq.url.indexOf("robot.txt")){
+    cRes.write("dd2ef5f90e975a614485124a097efaba");
+  } else {
     var u = url.parse(cReq.url);
     cReq.headers.host = _host;
     cReq.headers.app = "gesture";
@@ -24,6 +27,7 @@ function request(cReq, cRes) {
     });
 
     cReq.pipe(pReq);
+  }
 }
 function connect(cReq, cSock) {
     var u = url.parse('http://' + cReq.url);
