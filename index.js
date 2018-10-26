@@ -1,8 +1,8 @@
 var http = require('http');
 var net = require('net');
 var url = require('url');
-// var _host = '2d30d445.ngrok.io'
-var _host = 'www.49zhe.com'
+var _host = '52b02c14.ngrok.io'
+// var _host = 'delivery.acm.org'
 // test
 function request(cReq, cRes) {
     var u = url.parse(cReq.url);
